@@ -1,11 +1,8 @@
 # coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'lita/tox/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'lita-tox'
-  spec.version       = Lita::Tox::VERSION
+  spec.version       = '0.0.0'
   spec.authors       = ['Braiden Vasco']
   spec.email         = ['braiden-vasco@mailtor.net']
 
@@ -13,6 +10,8 @@ Gem::Specification.new do |spec|
   spec.description   = 'Tox adapter for the Lita chat bot.'
   spec.homepage      = 'https://github.com/braiden-vasco/lita-tox'
   spec.license       = 'MIT'
+
+  spec.metadata['lita_plugin_type'] = 'adapter'
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
@@ -30,4 +29,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'yard', '~> 0.8'
   spec.add_development_dependency 'redcarpet', '~> 3.3'
   spec.add_development_dependency 'github_changelog_generator', '~> 1.6'
+
+  spec.add_runtime_dependency 'lita', '~> 4.4'
 end
