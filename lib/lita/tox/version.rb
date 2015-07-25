@@ -1,5 +1,5 @@
 module Lita
-  module Tox
-    VERSION = "0.0.0"
+  module Tox # rubocop:disable Style/Documentation
+    VERSION = '0.0.0'
   end
 end
