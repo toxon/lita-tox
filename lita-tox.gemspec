@@ -1,26 +1,34 @@
+# coding: utf-8
+
 Gem::Specification.new do |spec|
-  spec.name          = "lita-tox"
-  spec.version       = "0.1.0"
-  spec.authors       = ["Braiden Vasco"]
-  spec.email         = ["braiden-vasco@mailtor.net"]
-  spec.description   = "TODO: Add a description"
-  spec.summary       = "TODO: Add a summary"
-  spec.homepage      = "TODO: Add a homepage"
-  spec.license       = "TODO: Add a license"
-  spec.metadata      = { "lita_plugin_type" => "adapter" }
+  spec.name          = 'lita-tox'
+  spec.version       = '0.0.0'
+  spec.authors       = ['Braiden Vasco']
+  spec.email         = ['braiden-vasco@mailtor.net']
 
-  spec.files         = `git ls-files`.split($/)
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
-  spec.require_paths = ["lib"]
+  spec.summary       = 'Tox adapter for the Lita chat bot'
+  spec.description   = 'Tox adapter for the Lita chat bot.'
+  spec.homepage      = 'https://github.com/braiden-vasco/lita-tox'
+  spec.license       = 'MIT'
 
-  spec.add_runtime_dependency "lita", ">= 4.4"
+  spec.metadata['lita_plugin_type'] = 'adapter'
 
-  spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "pry-byebug"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "rack-test"
-  spec.add_development_dependency "rspec", ">= 3.0.0"
-  spec.add_development_dependency "simplecov"
-  spec.add_development_dependency "coveralls"
+  spec.files = `git ls-files -z`.split("\x0").reject do |f|
+    f.match(%r{^(test|spec|features)/})
+  end
+
+  spec.bindir        = 'exe'
+  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.require_paths = ['lib']
+
+  spec.add_development_dependency 'bundler', '~> 1.7'
+  spec.add_development_dependency 'rake', '~> 10.0'
+  spec.add_development_dependency 'rubocop', '~> 0.31'
+  spec.add_development_dependency 'rspec', '~> 3.3'
+  spec.add_development_dependency 'simplecov', '~> 0.10'
+  spec.add_development_dependency 'yard', '~> 0.8'
+  spec.add_development_dependency 'redcarpet', '~> 3.3'
+  spec.add_development_dependency 'github_changelog_generator', '~> 1.6'
+
+  spec.add_runtime_dependency 'lita', '~> 4.4'
 end
