@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'yard', '~> 0.8'
   spec.add_development_dependency 'redcarpet', '~> 3.3'
   spec.add_development_dependency 'github_changelog_generator', '~> 1.6'
+  spec.add_development_dependency 'rake-compiler', '~> 0.9'
 
   spec.add_runtime_dependency 'lita', '~> 4.4'
 end
