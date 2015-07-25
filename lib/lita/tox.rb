@@ -1,4 +1,4 @@
-require "lita/tox/version"
+require 'lita/tox/version'
 
 module Lita
   module Tox
