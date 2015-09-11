@@ -12,6 +12,7 @@ static VALUE cTox;
 static VALUE cTox_alloc(VALUE klass);
 static void  cTox_free(void *ptr);
 static VALUE cTox_initialize(VALUE self, VALUE options);
+static VALUE cTox_savedata(VALUE self);
 
 typedef struct Tox_Options cTox_cOptions_;
 
@@ -25,6 +26,7 @@ void Init_tox()
   cTox = rb_define_class("Tox", rb_cObject);
   rb_define_alloc_func(cTox, cTox_alloc);
   rb_define_method(cTox, "initialize", cTox_initialize, 1);
+  rb_define_method(cTox, "savedata", cTox_savedata, 0);
 
   cTox_cOptions = rb_define_class_under(cTox, "Options", rb_cObject);
   rb_define_alloc_func(cTox_cOptions, cTox_cOptions_alloc);
@@ -64,6 +66,26 @@ VALUE cTox_initialize(const VALUE self, const VALUE options)
   tox->tox = tox_new(tox_options, NULL);
 
   return self;
+}
+
+VALUE cTox_savedata(VALUE self)
+{
+  cTox_ *tox;
+
+  size_t data_size;
+  char *data;
+
+  Data_Get_Struct(self, cTox_, tox);
+
+  data_size = tox_get_savedata_size(tox->tox);
+  data = ALLOC_N(char, data_size);
+
+  // if (!data)
+  //   rb_raise();
+
+  tox_get_savedata(tox->tox, (uint8_t*)data);
+
+  return rb_str_new(data, data_size);
 }
 
 /******************************************************************************
