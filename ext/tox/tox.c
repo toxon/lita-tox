@@ -13,6 +13,8 @@ static VALUE cTox_alloc(VALUE klass);
 static void  cTox_free(void *ptr);
 static VALUE cTox_initialize(VALUE self, VALUE options);
 
+typedef struct Tox_Options cTox_cOptions_;
+
 static VALUE cTox_cOptions;
 static VALUE cTox_cOptions_alloc(VALUE klass);
 static void  cTox_cOptions_free(void *ptr);
@@ -50,12 +52,12 @@ void cTox_free(void *const ptr)
 VALUE cTox_initialize(const VALUE self, const VALUE options)
 {
   cTox_ *tox;
-  struct Tox_Options *tox_options;
+  cTox_cOptions_ *tox_options;
 
   /* check if `options` is instance of `Tox::Options` */
 
   Data_Get_Struct(self, cTox_, tox);
-  Data_Get_Struct(options, struct Tox_Options, tox_options);
+  Data_Get_Struct(options, cTox_cOptions_, tox_options);
 
   tox->tox = tox_new(tox_options, NULL);
 
@@ -68,9 +70,9 @@ VALUE cTox_initialize(const VALUE self, const VALUE options)
 
 VALUE cTox_cOptions_alloc(const VALUE klass)
 {
-  struct Tox_Options *tox_options;
+  cTox_cOptions_ *tox_options;
 
-  tox_options = ALLOC(struct Tox_Options);
+  tox_options = ALLOC(cTox_cOptions_);
 
   return Data_Wrap_Struct(klass, NULL, cTox_cOptions_free, tox_options);
 }
@@ -82,11 +84,11 @@ void cTox_cOptions_free(void *const ptr)
 
 VALUE cTox_cOptions_initialize(const VALUE self)
 {
-  struct Tox_Options *tox_options;
+  cTox_cOptions_ *tox_options;
 
-  Data_Get_Struct(self, struct Tox_Options, tox_options);
+  Data_Get_Struct(self, cTox_cOptions_, tox_options);
 
-  memset(tox_options, 0, sizeof(struct Tox_Options));
+  memset(tox_options, 0, sizeof(cTox_cOptions_));
   tox_options_default(tox_options);
 
   return self;
