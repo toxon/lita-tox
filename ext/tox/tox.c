@@ -4,6 +4,21 @@
 
 void Init_tox();
 
+#define IP_LENGTH_MAX 15
+
+typedef char IP[IP_LENGTH_MAX + 1];
+typedef char Key[(TOX_PUBLIC_KEY_SIZE * 2) + 1];
+
+typedef struct Node {
+  IP ip;
+  int port;
+  Key key;
+} Node;
+
+typedef uint8_t KeyBin[TOX_PUBLIC_KEY_SIZE];
+
+static void Key_to_KeyBin(const char *key, uint8_t *key_bin);
+
 typedef struct cTox_ {
   Tox *tox;
 } cTox_;
@@ -14,6 +29,7 @@ static void  cTox_free(void *ptr);
 static VALUE cTox_initialize(VALUE self, VALUE options);
 static VALUE cTox_savedata(VALUE self);
 static VALUE cTox_id(VALUE self);
+static VALUE cTox_bootstrap(VALUE self, VALUE options);
 
 typedef struct Tox_Options cTox_cOptions_;
 
@@ -30,12 +46,26 @@ void Init_tox()
   rb_define_method(cTox, "initialize", cTox_initialize, 1);
   rb_define_method(cTox, "savedata", cTox_savedata, 0);
   rb_define_method(cTox, "id", cTox_id, 0);
+  rb_define_method(cTox, "bootstrap", cTox_bootstrap, 1);
 
   cTox_cOptions = rb_define_class_under(cTox, "Options", rb_cObject);
   rb_define_alloc_func(cTox_cOptions, cTox_cOptions_alloc);
   rb_define_method(cTox_cOptions, "initialize", cTox_cOptions_initialize, 0);
   rb_define_method(cTox_cOptions, "data=", cTox_cOptions_data_EQUALS, 1);
 }
+
+/******************************************************************************
+ * KeyBin
+ ******************************************************************************/
+
+void Key_to_KeyBin(const char *const key, uint8_t *const key_bin)
+{
+  long i;
+
+  for (i = 0; i < TOX_PUBLIC_KEY_SIZE; ++i)
+    sscanf(&key[i * 2], "%2hhx", &key_bin[i]);
+}
+
 
 /******************************************************************************
  * Tox
@@ -111,6 +141,45 @@ VALUE cTox_id(const VALUE self)
     sprintf(&id[2 * i], "%02X", address[i] & 0xFF);
 
   return rb_str_new(id, 2 * TOX_ADDRESS_SIZE);
+}
+
+VALUE cTox_bootstrap(const VALUE self, const VALUE options)
+{
+  cTox_ *tox;
+
+  VALUE ip;
+  VALUE port;
+  VALUE key;
+
+  Node node;
+  KeyBin key_bin;
+
+  TOX_ERR_BOOTSTRAP error;
+
+  Check_Type(options, T_HASH);
+
+  ip   = rb_hash_aref(options, ID2SYM(rb_intern("ip")));
+  port = rb_hash_aref(options, ID2SYM(rb_intern("port")));
+  key  = rb_hash_aref(options, ID2SYM(rb_intern("key")));
+
+  if (ip == Qnil)   rb_raise(rb_eRuntimeError, "option \"ip\" is required");
+  if (port == Qnil) rb_raise(rb_eRuntimeError, "option \"port\" is required");
+  if (key == Qnil)  rb_raise(rb_eRuntimeError, "option \"key\" is required");
+
+  Data_Get_Struct(self, cTox_, tox);
+
+  memcpy(node.ip, RSTRING_PTR(ip), RSTRING_LEN(ip) + 1);
+  node.port = NUM2INT(port);
+  memcpy(node.key, RSTRING_PTR(key), RSTRING_LEN(key) + 1);
+
+  Key_to_KeyBin(node.key, key_bin);
+
+  tox_bootstrap(tox->tox, node.ip, node.port, key_bin, &error);
+
+  if (error == TOX_ERR_BOOTSTRAP_OK)
+    return Qtrue;
+  else
+    return Qfalse;
 }
 
 /******************************************************************************
