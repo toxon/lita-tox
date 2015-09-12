@@ -75,7 +75,7 @@ VALUE cTox_initialize(const VALUE self, const VALUE options)
   return self;
 }
 
-VALUE cTox_savedata(VALUE self)
+VALUE cTox_savedata(const VALUE self)
 {
   cTox_ *tox;
 
@@ -122,7 +122,7 @@ VALUE cTox_cOptions_initialize(const VALUE self)
   return self;
 }
 
-VALUE cTox_cOptions_data_EQUALS(VALUE self, VALUE savedata)
+VALUE cTox_cOptions_data_EQUALS(const VALUE self, const VALUE savedata)
 {
   cTox_cOptions_ *tox_options;
 
