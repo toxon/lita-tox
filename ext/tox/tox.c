@@ -58,6 +58,8 @@ VALUE cTox_initialize(const VALUE self, const VALUE options)
   cTox_ *tox;
   cTox_cOptions_ *tox_options;
 
+  TOX_ERR_NEW error;
+
   // check if `options` is instance of `Tox::Options`
   if (Qfalse == rb_funcall(options, rb_intern("is_a?"), 1, cTox_cOptions))
     rb_raise(rb_eTypeError, "argument 1 should be Tox::Options");
@@ -65,7 +67,10 @@ VALUE cTox_initialize(const VALUE self, const VALUE options)
   Data_Get_Struct(self, cTox_, tox);
   Data_Get_Struct(options, cTox_cOptions_, tox_options);
 
-  tox->tox = tox_new(tox_options, NULL);
+  tox->tox = tox_new(tox_options, &error);
+
+  if (error != TOX_ERR_NEW_OK)
+    rb_raise(rb_eRuntimeError, "tox_new() failed");
 
   return self;
 }
