@@ -82,9 +82,6 @@ VALUE cTox_savedata(VALUE self)
   data_size = tox_get_savedata_size(tox->tox);
   data = ALLOC_N(char, data_size);
 
-  // if (!data)
-  //   rb_raise();
-
   tox_get_savedata(tox->tox, (uint8_t*)data);
 
   return rb_str_new(data, data_size);
