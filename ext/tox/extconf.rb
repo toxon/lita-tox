@@ -12,5 +12,6 @@ have_library LIBTOXCORE, 'tox_get_savedata_size' and
 have_library LIBTOXCORE, 'tox_get_savedata' and
 have_library LIBTOXCORE, 'tox_self_get_address' and
 have_library LIBTOXCORE, 'tox_bootstrap' and
+have_library LIBTOXCORE, 'tox_kill' and
 
 create_makefile "#{NAME}/#{NAME}" or exit(1)
