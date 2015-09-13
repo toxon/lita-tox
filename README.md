@@ -56,7 +56,9 @@ gem 'lita-tox', '~> 0.1.0'
 
 ### Configuration
 
-No configuration is needed. You only have to specify adapter as `:tox`
+#### Optional attributes
+
+- `savedata_filename` - Path to file where Tox state will be stored (if provided)
 
 #### Example
 
@@ -68,5 +70,7 @@ Lita.configure do |config|
   config.robot.mention_name = 'lita'
 
   config.robot.adapter = :tox
+
+  config.savedata_filename = 'savedata'
 end
 ```
