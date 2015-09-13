@@ -9,6 +9,10 @@
 /test/version_tmp/
 /tmp/
 
+Makefile
+*.o
+*.so
+
 ## Specific to RubyMotion:
 .dat*
 .repl_history
