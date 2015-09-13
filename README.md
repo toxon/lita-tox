@@ -7,6 +7,11 @@ Lita::Adapters::Tox
 
 [Tox](https://tox.chat) adapter for the [Lita](http://lita.io) chat bot.
 
+**WARNING**
+
+Still in development. Read the README carefully.
+
+
 TODO
 ----
 
