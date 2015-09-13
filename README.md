@@ -18,18 +18,23 @@ TODO
 Current development version have some limitations
 which should be fixed in first release:
 
-* Adapter doesn't save Tox state, so you have to send friendship
+* [\[issue #14\]](https://github.com/braiden-vasco/lita-tox/issues/14)
+  Adapter doesn't save Tox state, so you have to send friendship
   request again after each run. Current Tox ID is shown at start
   as Lita's information message
 
-* Only private chats are supported. Adapter will not respond to group invite
+* [\[issue #15\]](https://github.com/braiden-vasco/lita-tox/issues/15)
+  Only private chats are supported. Adapter will not respond to group invite
 
-* **libtoxcore** is not included in the gem. It should be compiled manually
+* [\[issue #16\]](https://github.com/braiden-vasco/lita-tox/issues/16)
+  **libtoxcore** is not included in the gem. It should be compiled manually
   to build the gem native extension successfully (see the instructions below)
 
-* JRuby is not supported. Only C extension for Tox is implemented
+* [\[issue #17\]](https://github.com/braiden-vasco/lita-tox/issues/17)
+  JRuby is not supported. Only C extension for Tox is implemented
 
-* Message length is limited to value of `TOX_MAX_MESSAGE_LENGTH`
+* [\[issue #18\]](https://github.com/braiden-vasco/lita-tox/issues/18)
+  Message length is limited to value of `TOX_MAX_MESSAGE_LENGTH`
   (see [source code of **libtoxcore**](https://github.com/irungentoo/toxcore/blob/2ab3b14731061cc04d3ccc50a35093c11d018298/toxcore/tox.h#L252-L255))
 
 * Adapter has incomplete API for Lita. Only basic methods are implemented
