@@ -58,7 +58,7 @@ gem 'lita-tox', '~> 0.1.0'
 
 #### Optional attributes
 
-- `savedata_filename` - Path to file where Tox state will be stored (if provided)
+- `savedata_filename` (String) - Path to file where Tox state will be stored (if provided)
 
 #### Example
 
