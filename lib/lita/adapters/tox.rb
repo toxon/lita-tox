@@ -13,6 +13,8 @@ module Lita
     #
     class Tox < Adapter
       def initialize(robot)
+        super
+
         @tox = ::Tox.new
 
         log.info("ID: #{@tox.id}")
