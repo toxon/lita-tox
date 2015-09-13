@@ -18,11 +18,6 @@ TODO
 Current development version have some limitations
 which should be fixed in first release:
 
-* [\[issue #14\]](https://github.com/braiden-vasco/lita-tox/issues/14)
-  Adapter doesn't save Tox state, so you have to send friendship
-  request again after each run. Current Tox ID is shown at start
-  as Lita's information message
-
 * [\[issue #15\]](https://github.com/braiden-vasco/lita-tox/issues/15)
   Only private chats are supported. Adapter will not respond to group invite
 
