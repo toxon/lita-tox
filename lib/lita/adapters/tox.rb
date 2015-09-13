@@ -12,10 +12,20 @@ module Lita
     # Tox adapter for the Lita chat bot.
     #
     class Tox < Adapter
+      config :savedata_filename, type: String
+
       def initialize(robot)
         super
 
-        @tox = ::Tox.new
+        options = ::Tox::Options.new
+
+        if config.savedata_filename && File.exist?(config.savedata_filename)
+          savedata_file = open(config.savedata_filename)
+          options.data = savedata_file.read
+          savedata_file.close
+        end
+
+        @tox = ::Tox.new(options)
 
         log.info("ID: #{@tox.id}")
 
@@ -35,6 +45,16 @@ module Lita
 
       def run
         @tox.loop
+      end
+
+      def shut_down
+        if config.savedata_filename
+          savedata_file = open(config.savedata_filename, 'w')
+          savedata_file.write(@tox.savedata)
+          savedata_file.close
+        end
+
+        @tox.kill
       end
 
       def send_messages(target, messages)
