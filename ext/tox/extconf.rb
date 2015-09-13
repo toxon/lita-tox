@@ -18,5 +18,7 @@ have_library LIBTOXCORE, 'tox_iteration_interval' and
 have_library LIBTOXCORE, 'tox_iterate' and
 have_library LIBTOXCORE, 'tox_friend_add_norequest' and
 have_library LIBTOXCORE, 'tox_friend_send_message' and
+have_library LIBTOXCORE, 'tox_callback_friend_request' and
+have_library LIBTOXCORE, 'tox_callback_friend_message' and
 
 create_makefile "#{NAME}/#{NAME}" or exit(1)

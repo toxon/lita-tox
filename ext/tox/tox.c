@@ -29,6 +29,7 @@ typedef struct cTox_ {
 } cTox_;
 
 static VALUE cTox;
+
 static VALUE cTox_alloc(VALUE klass);
 static void  cTox_free(void *ptr);
 static VALUE cTox_initialize_with(VALUE self, VALUE options);
@@ -40,9 +41,25 @@ static VALUE cTox_loop(VALUE self);
 static VALUE cTox_friend_add_norequest(VALUE self, VALUE key);
 static VALUE cTox_friend_send_message(VALUE self, VALUE friend_number, VALUE text);
 
+static void on_friend_request(
+  Tox *tox,
+  const uint8_t *key,
+  const uint8_t *data,
+  size_t length,
+  VALUE self);
+
+static void on_friend_message(
+  Tox *tox,
+  uint32_t friend_number,
+  TOX_MESSAGE_TYPE type,
+  const uint8_t *text,
+  size_t length,
+  VALUE self);
+
 typedef struct Tox_Options cTox_cOptions_;
 
 static VALUE cTox_cOptions;
+
 static VALUE cTox_cOptions_alloc(VALUE klass);
 static void  cTox_cOptions_free(void *ptr);
 static VALUE cTox_cOptions_initialize(VALUE self);
@@ -82,7 +99,6 @@ void Key_to_KeyBin(const char *const key, uint8_t *const key_bin)
     sscanf(&key[i * 2], "%2hhx", &key_bin[i]);
 }
 
-
 /******************************************************************************
  * Tox
  ******************************************************************************/
@@ -119,6 +135,9 @@ VALUE cTox_initialize_with(const VALUE self, const VALUE options)
 
   if (error != TOX_ERR_NEW_OK)
     rb_raise(rb_eRuntimeError, "tox_new() failed");
+
+  tox_callback_friend_request(tox->tox, (tox_friend_request_cb*)on_friend_request, (void*)self);
+  tox_callback_friend_message(tox->tox, (tox_friend_message_cb*)on_friend_message, (void*)self);
 
   return self;
 }
@@ -260,6 +279,52 @@ VALUE cTox_friend_send_message(const VALUE self, const VALUE friend_number, cons
     RSTRING_LEN(text),
     NULL
   ));
+}
+
+void on_friend_request(
+  Tox *const tox,
+  const uint8_t *const key,
+  const uint8_t *const data,
+  const size_t length,
+  const VALUE self)
+{
+  VALUE rb_on_friend_request;
+
+  rb_on_friend_request = rb_iv_get(self, "@on_friend_request");
+
+  if (Qnil != rb_on_friend_request)
+    rb_funcall(
+      rb_on_friend_request,
+      rb_intern("call"),
+      2,
+      rb_str_new((char*)key, TOX_PUBLIC_KEY_SIZE),
+      rb_str_new((char*)data, length)
+    );
+}
+
+void on_friend_message(
+  Tox *const tox,
+  const uint32_t friend_number,
+  const TOX_MESSAGE_TYPE type,
+  const uint8_t *const text,
+  const size_t length,
+  const VALUE self)
+{
+  VALUE rb_on_friend_message;
+
+  if (type != TOX_MESSAGE_TYPE_NORMAL)
+    return;
+
+  rb_on_friend_message = rb_iv_get(self, "@on_friend_message");
+
+  if (Qnil != rb_on_friend_message)
+    rb_funcall(
+      rb_on_friend_message,
+      rb_intern("call"),
+      2,
+      LONG2FIX(friend_number),
+      rb_str_new((char*)text, length)
+    );
 }
 
 /******************************************************************************
