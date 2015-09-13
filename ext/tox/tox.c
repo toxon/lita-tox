@@ -2,6 +2,9 @@
 
 #include <tox/tox.h>
 
+#define TOX_IS_COMPATIBLE TOX_VERSION_IS_API_COMPATIBLE
+TOX_VERSION_REQUIRE(0, 0, 0);
+
 void Init_tox();
 
 #define IP_LENGTH_MAX 15
