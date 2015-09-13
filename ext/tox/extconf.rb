@@ -6,6 +6,13 @@ NAME = 'tox'
 
 LIBTOXCORE = 'toxcore'
 
+have_header 'time.h' and
+have_header 'tox/tox.h' and
+
+have_func 'sprintf' and
+have_func 'sscanf' and
+have_func 'nanosleep' and
+
 have_library LIBTOXCORE, 'tox_options_default' and
 have_library LIBTOXCORE, 'tox_new' and
 have_library LIBTOXCORE, 'tox_get_savedata_size' and
