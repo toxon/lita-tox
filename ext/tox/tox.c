@@ -225,7 +225,6 @@ VALUE cTox_cOptions_initialize(const VALUE self)
 
   Data_Get_Struct(self, cTox_cOptions_, tox_options);
 
-  memset(tox_options, 0, sizeof(cTox_cOptions_));
   tox_options_default(tox_options);
 
   return self;
