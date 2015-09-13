@@ -50,7 +50,7 @@ When **libtoxcore** is installed, add **lita-tox**
 to your Lita instance's Gemfile:
 
 ```ruby
-gem 'lita-tox', '~> 0.0.0'
+gem 'lita-tox', '~> 0.1.0'
 ```
 
 ### Configuration

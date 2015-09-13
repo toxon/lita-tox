@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |spec|
   spec.name          = 'lita-tox'
-  spec.version       = '0.0.0'
+  spec.version       = '0.1.0'
   spec.authors       = ['Braiden Vasco']
   spec.email         = ['braiden-vasco@mailtor.net']
 
