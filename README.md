@@ -33,3 +33,39 @@ which should be fixed in first release:
   (see [source code of **libtoxcore**](https://github.com/irungentoo/toxcore/blob/2ab3b14731061cc04d3ccc50a35093c11d018298/toxcore/tox.h#L252-L255))
 
 * Adapter has incomplete API for Lita. Only basic methods are implemented
+
+
+Usage
+-----
+
+At first, see the documentation for Lita: http://docs.lita.io/
+
+### Installation
+
+**libtoxcore** should be compiled manually at your computer or server.
+Follow the instructions at
+[that file](https://github.com/irungentoo/toxcore/blob/2ab3b14731061cc04d3ccc50a35093c11d018298/INSTALL.md)
+
+When **libtoxcore** is installed, add **lita-tox**
+to your Lita instance's Gemfile:
+
+```ruby
+gem 'lita-tox', '~> 0.0.0'
+```
+
+### Configuration
+
+No configuration is needed. You only have to specify adapter as `:tox`
+
+#### Example
+
+This is an example `lita_config.rb` file:
+
+```ruby
+Lita.configure do |config|
+  config.robot.name = 'Lita'
+  config.robot.mention_name = 'lita'
+
+  config.robot.adapter = :tox
+end
+```
