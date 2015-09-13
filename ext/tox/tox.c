@@ -38,6 +38,7 @@ static VALUE cTox_bootstrap(VALUE self, VALUE options);
 static VALUE cTox_kill(VALUE self);
 static VALUE cTox_loop(VALUE self);
 static VALUE cTox_friend_add_norequest(VALUE self, VALUE key);
+static VALUE cTox_friend_send_message(VALUE self, VALUE friend_number, VALUE text);
 
 typedef struct Tox_Options cTox_cOptions_;
 
@@ -61,6 +62,7 @@ void Init_tox()
   rb_define_method(cTox, "kill", cTox_kill, 0);
   rb_define_method(cTox, "loop", cTox_loop, 0);
   rb_define_method(cTox, "friend_add_norequest", cTox_friend_add_norequest, 1);
+  rb_define_method(cTox, "friend_send_message", cTox_friend_send_message, 2);
 
   cTox_cOptions = rb_define_class_under(cTox, "Options", rb_cObject);
   rb_define_alloc_func(cTox_cOptions, cTox_cOptions_alloc);
@@ -238,6 +240,26 @@ VALUE cTox_friend_add_norequest(const VALUE self, const VALUE key)
   Data_Get_Struct(self, cTox_, tox);
 
   return LONG2FIX(tox_friend_add_norequest(tox->tox, (uint8_t*)RSTRING_PTR(key), NULL));
+}
+
+VALUE cTox_friend_send_message(const VALUE self, const VALUE friend_number, const VALUE text)
+{
+  cTox_ *tox;
+
+  // Don't know yet how to check for integers
+  // Check_Type(friend_number, T_INTEGER);
+  Check_Type(text, T_STRING);
+
+  Data_Get_Struct(self, cTox_, tox);
+
+  return LONG2FIX(tox_friend_send_message(
+    tox->tox,
+    NUM2LONG(friend_number),
+    TOX_MESSAGE_TYPE_NORMAL,
+    (uint8_t*)RSTRING_PTR(text),
+    RSTRING_LEN(text),
+    NULL
+  ));
 }
 
 /******************************************************************************
