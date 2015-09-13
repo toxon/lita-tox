@@ -28,7 +28,8 @@ which should be fixed in first release:
 
 * [\[issue #16\]](https://github.com/braiden-vasco/lita-tox/issues/16)
   **libtoxcore** is not included in the gem. It should be compiled manually
-  to build the gem native extension successfully (see the instructions below)
+  to build the gem native extension successfully. Follow the instructions in
+  [that file](https://github.com/irungentoo/toxcore/blob/2ab3b14731061cc04d3ccc50a35093c11d018298/INSTALL.md)
 
 * [\[issue #17\]](https://github.com/braiden-vasco/lita-tox/issues/17)
   JRuby is not supported. Only C extension for Tox is implemented
@@ -48,7 +49,7 @@ At first, see the documentation for Lita: http://docs.lita.io/
 ### Installation
 
 **libtoxcore** should be compiled manually at your computer or server.
-Follow the instructions at
+Follow the instructions in
 [that file](https://github.com/irungentoo/toxcore/blob/2ab3b14731061cc04d3ccc50a35093c11d018298/INSTALL.md)
 
 When **libtoxcore** is installed, add **lita-tox**
