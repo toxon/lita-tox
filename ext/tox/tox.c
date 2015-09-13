@@ -37,6 +37,7 @@ static VALUE cTox_id(VALUE self);
 static VALUE cTox_bootstrap(VALUE self, VALUE options);
 static VALUE cTox_kill(VALUE self);
 static VALUE cTox_loop(VALUE self);
+static VALUE cTox_friend_add_norequest(VALUE self, VALUE key);
 
 typedef struct Tox_Options cTox_cOptions_;
 
@@ -59,6 +60,7 @@ void Init_tox()
   rb_define_method(cTox, "bootstrap", cTox_bootstrap, 1);
   rb_define_method(cTox, "kill", cTox_kill, 0);
   rb_define_method(cTox, "loop", cTox_loop, 0);
+  rb_define_method(cTox, "friend_add_norequest", cTox_friend_add_norequest, 1);
 
   cTox_cOptions = rb_define_class_under(cTox, "Options", rb_cObject);
   rb_define_alloc_func(cTox_cOptions, cTox_cOptions_alloc);
@@ -225,6 +227,17 @@ VALUE cTox_loop(const VALUE self)
   }
 
   return self;
+}
+
+VALUE cTox_friend_add_norequest(const VALUE self, const VALUE key)
+{
+  cTox_ *tox;
+
+  Check_Type(key, T_STRING);
+
+  Data_Get_Struct(self, cTox_, tox);
+
+  return LONG2FIX(tox_friend_add_norequest(tox->tox, (uint8_t*)RSTRING_PTR(key), NULL));
 }
 
 /******************************************************************************

@@ -16,5 +16,6 @@ have_library LIBTOXCORE, 'tox_kill' and
 have_library LIBTOXCORE, 'tox_version_is_compatible' and
 have_library LIBTOXCORE, 'tox_iteration_interval' and
 have_library LIBTOXCORE, 'tox_iterate' and
+have_library LIBTOXCORE, 'tox_friend_add_norequest' and
 
 create_makefile "#{NAME}/#{NAME}" or exit(1)
