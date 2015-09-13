@@ -1,5 +1,7 @@
 #include <ruby.h>
 
+#include <time.h>
+
 #include <tox/tox.h>
 
 #define TOX_IS_COMPATIBLE TOX_VERSION_IS_API_COMPATIBLE
@@ -34,6 +36,7 @@ static VALUE cTox_savedata(VALUE self);
 static VALUE cTox_id(VALUE self);
 static VALUE cTox_bootstrap(VALUE self, VALUE options);
 static VALUE cTox_kill(VALUE self);
+static VALUE cTox_loop(VALUE self);
 
 typedef struct Tox_Options cTox_cOptions_;
 
@@ -55,6 +58,7 @@ void Init_tox()
   rb_define_method(cTox, "id", cTox_id, 0);
   rb_define_method(cTox, "bootstrap", cTox_bootstrap, 1);
   rb_define_method(cTox, "kill", cTox_kill, 0);
+  rb_define_method(cTox, "loop", cTox_loop, 0);
 
   cTox_cOptions = rb_define_class_under(cTox, "Options", rb_cObject);
   rb_define_alloc_func(cTox_cOptions, cTox_cOptions_alloc);
@@ -197,6 +201,28 @@ VALUE cTox_kill(const VALUE self)
   Data_Get_Struct(self, cTox_, tox);
 
   tox_kill(tox->tox);
+
+  return self;
+}
+
+VALUE cTox_loop(const VALUE self)
+{
+  cTox_ *tox;
+
+  struct timespec delay;
+
+  Data_Get_Struct(self, cTox_, tox);
+
+  rb_funcall(self, rb_intern("running="), 1, Qtrue);
+
+  delay.tv_sec = 0;
+
+  while (rb_funcall(self, rb_intern("running"), 0)) {
+    delay.tv_nsec = tox_iteration_interval(tox->tox) * 1000000;
+    nanosleep(&delay, NULL);
+
+    tox_iterate(tox->tox);
+  }
 
   return self;
 }
