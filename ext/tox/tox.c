@@ -40,6 +40,8 @@ static VALUE cTox_kill(VALUE self);
 static VALUE cTox_loop(VALUE self);
 static VALUE cTox_friend_add_norequest(VALUE self, VALUE key);
 static VALUE cTox_friend_send_message(VALUE self, VALUE friend_number, VALUE text);
+static VALUE cTox_join_groupchat(VALUE self, VALUE friend_number, VALUE data);
+static VALUE cTox_group_message_send(VALUE self, VALUE group_number, VALUE text);
 
 static void on_friend_request(
   Tox *tox,
@@ -80,6 +82,8 @@ void Init_tox()
   rb_define_method(cTox, "loop", cTox_loop, 0);
   rb_define_method(cTox, "friend_add_norequest", cTox_friend_add_norequest, 1);
   rb_define_method(cTox, "friend_send_message", cTox_friend_send_message, 2);
+  rb_define_method(cTox, "join_groupchat", cTox_join_groupchat, 2);
+  rb_define_method(cTox, "group_message_send", cTox_group_message_send, 2);
 
   cTox_cOptions = rb_define_class_under(cTox, "Options", rb_cObject);
   rb_define_alloc_func(cTox_cOptions, cTox_cOptions_alloc);
@@ -278,6 +282,42 @@ VALUE cTox_friend_send_message(const VALUE self, const VALUE friend_number, cons
     (uint8_t*)RSTRING_PTR(text),
     RSTRING_LEN(text),
     NULL
+  ));
+}
+
+VALUE cTox_join_groupchat(const VALUE self, const VALUE friend_number, const VALUE data)
+{
+  cTox_ *tox;
+
+  // Don't know yet how to check for integers
+  // Check_Type(friend_number, T_INTEGER);
+  Check_Type(data, T_STRING);
+
+  Data_Get_Struct(self, cTox_, tox);
+
+  return INT2FIX(tox_join_groupchat(
+    tox->tox,
+    NUM2LONG(friend_number),
+    (uint8_t*)RSTRING_PTR(data),
+    RSTRING_LEN(data)
+  ));
+}
+
+VALUE cTox_group_message_send(const VALUE self, const VALUE group_number, const VALUE text)
+{
+  cTox_ *tox;
+
+  // Don't know yet how to check for integers
+  // Check_Type(group_number, T_INTEGER);
+  Check_Type(text, T_STRING);
+
+  Data_Get_Struct(self, cTox_, tox);
+
+  return INT2FIX(tox_group_message_send(
+    tox->tox,
+    NUM2LONG(group_number),
+    (uint8_t*)RSTRING_PTR(text),
+    RSTRING_LEN(text)
   ));
 }
 
