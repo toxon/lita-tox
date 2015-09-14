@@ -42,6 +42,7 @@ static VALUE cTox_friend_add_norequest(VALUE self, VALUE key);
 static VALUE cTox_friend_send_message(VALUE self, VALUE friend_number, VALUE text);
 static VALUE cTox_join_groupchat(VALUE self, VALUE friend_number, VALUE data);
 static VALUE cTox_group_message_send(VALUE self, VALUE group_number, VALUE text);
+static VALUE cTox_group_peernumber_is_ours(VALUE self, VALUE group_number, VALUE peer_number);
 
 static void on_friend_request(
   Tox *tox,
@@ -102,6 +103,7 @@ void Init_tox()
   rb_define_method(cTox, "friend_send_message", cTox_friend_send_message, 2);
   rb_define_method(cTox, "join_groupchat", cTox_join_groupchat, 2);
   rb_define_method(cTox, "group_message_send", cTox_group_message_send, 2);
+  rb_define_method(cTox, "group_peernumber_is_ours", cTox_group_peernumber_is_ours, 2);
 
   cTox_cOptions = rb_define_class_under(cTox, "Options", rb_cObject);
   rb_define_alloc_func(cTox_cOptions, cTox_cOptions_alloc);
@@ -345,6 +347,29 @@ VALUE cTox_group_message_send(const VALUE self, const VALUE group_number, const 
     (uint8_t*)RSTRING_PTR(text),
     RSTRING_LEN(text)
   ));
+}
+
+VALUE cTox_group_peernumber_is_ours(
+  const VALUE self,
+  const VALUE group_number,
+  const VALUE peer_number)
+{
+  cTox_ *tox;
+
+  // Don't know yet how to check for integers
+  // Check_Type(group_number, T_INTEGER);
+  // Check_Type(peer_number, T_INTEGER);
+
+  Data_Get_Struct(self, cTox_, tox);
+
+  if (tox_group_peernumber_is_ours(
+    tox->tox,
+    NUM2INT(group_number),
+    NUM2INT(peer_number))
+  )
+    return Qtrue;
+  else
+    return Qfalse;
 }
 
 void on_friend_request(

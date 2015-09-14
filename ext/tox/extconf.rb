@@ -32,5 +32,6 @@ have_library LIBTOXCORE, 'tox_join_groupchat' and
 have_library LIBTOXCORE, 'tox_group_message_send' and
 have_library LIBTOXCORE, 'tox_callback_group_invite' and
 have_library LIBTOXCORE, 'tox_callback_group_message' and
+have_library LIBTOXCORE, 'tox_group_peernumber_is_ours' and
 
 create_makefile "#{NAME}/#{NAME}" or exit(1)
