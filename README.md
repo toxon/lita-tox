@@ -18,9 +18,6 @@ TODO
 Current development version have some limitations
 which should be fixed in first release:
 
-* [\[issue #15\]](https://github.com/braiden-vasco/lita-tox/issues/15)
-  Only private chats are supported. Adapter will not respond to group invite
-
 * [\[issue #16\]](https://github.com/braiden-vasco/lita-tox/issues/16)
   **libtoxcore** is not included in the gem. It should be compiled manually
   to build the gem native extension successfully. Follow the instructions in

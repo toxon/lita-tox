@@ -40,6 +40,9 @@ static VALUE cTox_kill(VALUE self);
 static VALUE cTox_loop(VALUE self);
 static VALUE cTox_friend_add_norequest(VALUE self, VALUE key);
 static VALUE cTox_friend_send_message(VALUE self, VALUE friend_number, VALUE text);
+static VALUE cTox_join_groupchat(VALUE self, VALUE friend_number, VALUE data);
+static VALUE cTox_group_message_send(VALUE self, VALUE group_number, VALUE text);
+static VALUE cTox_group_peernumber_is_ours(VALUE self, VALUE group_number, VALUE peer_number);
 
 static void on_friend_request(
   Tox *tox,
@@ -55,6 +58,24 @@ static void on_friend_message(
   const uint8_t *text,
   size_t length,
   VALUE self);
+
+static void on_group_invite(
+    Tox *tox,
+    int32_t friend_number,
+    uint8_t type,
+    const uint8_t *data,
+    uint16_t length,
+    VALUE self
+  );
+
+static void on_group_message(
+    Tox *tox,
+    int group_number,
+    int peer_number,
+    const uint8_t *text,
+    uint16_t length,
+    VALUE self
+  );
 
 typedef struct Tox_Options cTox_cOptions_;
 
@@ -80,6 +101,9 @@ void Init_tox()
   rb_define_method(cTox, "loop", cTox_loop, 0);
   rb_define_method(cTox, "friend_add_norequest", cTox_friend_add_norequest, 1);
   rb_define_method(cTox, "friend_send_message", cTox_friend_send_message, 2);
+  rb_define_method(cTox, "join_groupchat", cTox_join_groupchat, 2);
+  rb_define_method(cTox, "group_message_send", cTox_group_message_send, 2);
+  rb_define_method(cTox, "group_peernumber_is_ours", cTox_group_peernumber_is_ours, 2);
 
   cTox_cOptions = rb_define_class_under(cTox, "Options", rb_cObject);
   rb_define_alloc_func(cTox_cOptions, cTox_cOptions_alloc);
@@ -138,6 +162,14 @@ VALUE cTox_initialize_with(const VALUE self, const VALUE options)
 
   tox_callback_friend_request(tox->tox, (tox_friend_request_cb*)on_friend_request, (void*)self);
   tox_callback_friend_message(tox->tox, (tox_friend_message_cb*)on_friend_message, (void*)self);
+  tox_callback_group_invite(
+    tox->tox,
+    (void (*)(struct Tox *, int32_t, uint8_t, const uint8_t *, uint16_t, void *))on_group_invite,
+    (void*)self);
+  tox_callback_group_message(
+    tox->tox,
+    (void (*)(struct Tox *, int, int, const uint8_t *, uint16_t, void *))on_group_message,
+    (void*)self);
 
   return self;
 }
@@ -281,6 +313,65 @@ VALUE cTox_friend_send_message(const VALUE self, const VALUE friend_number, cons
   ));
 }
 
+VALUE cTox_join_groupchat(const VALUE self, const VALUE friend_number, const VALUE data)
+{
+  cTox_ *tox;
+
+  // Don't know yet how to check for integers
+  // Check_Type(friend_number, T_INTEGER);
+  Check_Type(data, T_STRING);
+
+  Data_Get_Struct(self, cTox_, tox);
+
+  return INT2FIX(tox_join_groupchat(
+    tox->tox,
+    NUM2LONG(friend_number),
+    (uint8_t*)RSTRING_PTR(data),
+    RSTRING_LEN(data)
+  ));
+}
+
+VALUE cTox_group_message_send(const VALUE self, const VALUE group_number, const VALUE text)
+{
+  cTox_ *tox;
+
+  // Don't know yet how to check for integers
+  // Check_Type(group_number, T_INTEGER);
+  Check_Type(text, T_STRING);
+
+  Data_Get_Struct(self, cTox_, tox);
+
+  return INT2FIX(tox_group_message_send(
+    tox->tox,
+    NUM2LONG(group_number),
+    (uint8_t*)RSTRING_PTR(text),
+    RSTRING_LEN(text)
+  ));
+}
+
+VALUE cTox_group_peernumber_is_ours(
+  const VALUE self,
+  const VALUE group_number,
+  const VALUE peer_number)
+{
+  cTox_ *tox;
+
+  // Don't know yet how to check for integers
+  // Check_Type(group_number, T_INTEGER);
+  // Check_Type(peer_number, T_INTEGER);
+
+  Data_Get_Struct(self, cTox_, tox);
+
+  if (tox_group_peernumber_is_ours(
+    tox->tox,
+    NUM2INT(group_number),
+    NUM2INT(peer_number))
+  )
+    return Qtrue;
+  else
+    return Qfalse;
+}
+
 void on_friend_request(
   Tox *const tox,
   const uint8_t *const key,
@@ -323,6 +414,51 @@ void on_friend_message(
       rb_intern("call"),
       2,
       LONG2FIX(friend_number),
+      rb_str_new((char*)text, length)
+    );
+}
+
+static void on_group_invite(
+    Tox *const tox,
+    const int32_t friend_number,
+    const uint8_t type,
+    const uint8_t *const data,
+    const uint16_t length,
+    const VALUE self)
+{
+  VALUE rb_on_group_invite;
+
+  rb_on_group_invite = rb_iv_get(self, "@on_group_invite");
+
+  if (Qnil != rb_on_group_invite)
+    rb_funcall(
+      rb_on_group_invite,
+      rb_intern("call"),
+      2,
+      LONG2FIX(friend_number),
+      rb_str_new((char*)data, length)
+    );
+}
+
+static void on_group_message(
+    Tox *const tox,
+    const int group_number,
+    const int peer_number,
+    const uint8_t *const text,
+    const uint16_t length,
+    const VALUE self)
+{
+  VALUE rb_on_group_message;
+
+  rb_on_group_message = rb_iv_get(self, "@on_group_message");
+
+  if (Qnil != rb_on_group_message)
+    rb_funcall(
+      rb_on_group_message,
+      rb_intern("call"),
+      3,
+      LONG2FIX(group_number),
+      LONG2FIX(peer_number),
       rb_str_new((char*)text, length)
     );
 }

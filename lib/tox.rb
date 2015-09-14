@@ -50,4 +50,12 @@ class Tox
   def on_friend_message(&block)
     @on_friend_message = block
   end
+
+  def on_group_invite(&block)
+    @on_group_invite = block
+  end
+
+  def on_group_message(&block)
+    @on_group_message = block
+  end
 end
