@@ -431,8 +431,9 @@ static void on_group_message(
     rb_funcall(
       rb_on_group_message,
       rb_intern("call"),
-      2,
+      3,
       LONG2FIX(group_number),
+      LONG2FIX(peer_number),
       rb_str_new((char*)text, length)
     );
 }
