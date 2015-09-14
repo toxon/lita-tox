@@ -1,5 +1,13 @@
 # Change Log
 
+## [v0.2.0](https://github.com/braiden-vasco/lita-tox/tree/v0.2.0) (2015-09-14)
+[Full Changelog](https://github.com/braiden-vasco/lita-tox/compare/v0.1.0...v0.2.0)
+
+**Merged pull requests:**
+
+- Implement group chats [\#20](https://github.com/braiden-vasco/lita-tox/pull/20) ([braiden-vasco](https://github.com/braiden-vasco))
+- Save Tox state [\#19](https://github.com/braiden-vasco/lita-tox/pull/19) ([braiden-vasco](https://github.com/braiden-vasco))
+
 ## [v0.1.0](https://github.com/braiden-vasco/lita-tox/tree/v0.1.0) (2015-09-13)
 **Merged pull requests:**
 
