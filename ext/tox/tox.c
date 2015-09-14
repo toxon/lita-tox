@@ -58,6 +58,24 @@ static void on_friend_message(
   size_t length,
   VALUE self);
 
+static void on_group_invite(
+    Tox *tox,
+    int32_t friend_number,
+    uint8_t type,
+    const uint8_t *data,
+    uint16_t length,
+    VALUE self
+  );
+
+static void on_group_message(
+    Tox *tox,
+    int group_number,
+    int peer_number,
+    const uint8_t *text,
+    uint16_t length,
+    VALUE self
+  );
+
 typedef struct Tox_Options cTox_cOptions_;
 
 static VALUE cTox_cOptions;
@@ -142,6 +160,14 @@ VALUE cTox_initialize_with(const VALUE self, const VALUE options)
 
   tox_callback_friend_request(tox->tox, (tox_friend_request_cb*)on_friend_request, (void*)self);
   tox_callback_friend_message(tox->tox, (tox_friend_message_cb*)on_friend_message, (void*)self);
+  tox_callback_group_invite(
+    tox->tox,
+    (void (*)(struct Tox *, int32_t, uint8_t, const uint8_t *, uint16_t, void *))on_group_invite,
+    (void*)self);
+  tox_callback_group_message(
+    tox->tox,
+    (void (*)(struct Tox *, int, int, const uint8_t *, uint16_t, void *))on_group_message,
+    (void*)self);
 
   return self;
 }
@@ -363,6 +389,50 @@ void on_friend_message(
       rb_intern("call"),
       2,
       LONG2FIX(friend_number),
+      rb_str_new((char*)text, length)
+    );
+}
+
+static void on_group_invite(
+    Tox *const tox,
+    const int32_t friend_number,
+    const uint8_t type,
+    const uint8_t *const data,
+    const uint16_t length,
+    const VALUE self)
+{
+  VALUE rb_on_group_invite;
+
+  rb_on_group_invite = rb_iv_get(self, "@on_group_invite");
+
+  if (Qnil != rb_on_group_invite)
+    rb_funcall(
+      rb_on_group_invite,
+      rb_intern("call"),
+      2,
+      LONG2FIX(friend_number),
+      rb_str_new((char*)data, length)
+    );
+}
+
+static void on_group_message(
+    Tox *const tox,
+    const int group_number,
+    const int peer_number,
+    const uint8_t *const text,
+    const uint16_t length,
+    const VALUE self)
+{
+  VALUE rb_on_group_message;
+
+  rb_on_group_message = rb_iv_get(self, "@on_group_message");
+
+  if (Qnil != rb_on_group_message)
+    rb_funcall(
+      rb_on_group_message,
+      rb_intern("call"),
+      2,
+      LONG2FIX(group_number),
       rb_str_new((char*)text, length)
     );
 }
