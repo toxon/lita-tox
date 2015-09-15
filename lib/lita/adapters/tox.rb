@@ -13,6 +13,7 @@ module Lita
     #
     class Tox < Adapter
       config :savedata_filename, type: String
+      config :status, type: String
 
       def initialize(robot)
         super
@@ -28,6 +29,9 @@ module Lita
         @tox = ::Tox.new(options)
 
         log.info("ID: #{@tox.id}")
+
+        @tox.name = robot.name if robot.name
+        @tox.status_message = config.status if config.status
 
         @tox.on_friend_request do |key|
           @tox.friend_add_norequest(key)
