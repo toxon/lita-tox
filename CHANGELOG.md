@@ -1,5 +1,12 @@
 # Change Log
 
+## [v0.3.0](https://github.com/braiden-vasco/lita-tox/tree/v0.3.0) (2015-09-15)
+[Full Changelog](https://github.com/braiden-vasco/lita-tox/compare/v0.2.0...v0.3.0)
+
+**Closed issues:**
+
+- Setup Tox user nickname and status [\#21](https://github.com/braiden-vasco/lita-tox/issues/21)
+
 ## [v0.2.0](https://github.com/braiden-vasco/lita-tox/tree/v0.2.0) (2015-09-14)
 [Full Changelog](https://github.com/braiden-vasco/lita-tox/compare/v0.1.0...v0.2.0)
 

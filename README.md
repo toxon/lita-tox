@@ -48,14 +48,21 @@ When **libtoxcore** is installed, add **lita-tox**
 to your Lita instance's Gemfile:
 
 ```ruby
-gem 'lita-tox', '~> 0.2.0'
+gem 'lita-tox', '~> 0.3.0'
 ```
 
 ### Configuration
 
+`config.robot.name` will be used as Tox user name
+
+Mentions in Tox usually use user name, Tox clients usually allow mentioning
+by writing first letters of user name and pressing `<Tab>`, so don't use
+`config.robot.mention_name`
+
 #### Optional attributes
 
 - `savedata_filename` (String) - Path to file where Tox state will be stored (if provided)
+- `status` (String) - Tox user status
 
 #### Example
 
@@ -63,11 +70,11 @@ This is an example `lita_config.rb` file:
 
 ```ruby
 Lita.configure do |config|
-  config.robot.name = 'Lita'
-  config.robot.mention_name = 'lita'
+  config.robot.name = 'Lita chat bot'
 
   config.robot.adapter = :tox
 
   config.savedata_filename = 'savedata'
+  config.status = "Send me \"#{config.robot.name}: help\""
 end
 ```

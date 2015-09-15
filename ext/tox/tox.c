@@ -43,6 +43,10 @@ static VALUE cTox_friend_send_message(VALUE self, VALUE friend_number, VALUE tex
 static VALUE cTox_join_groupchat(VALUE self, VALUE friend_number, VALUE data);
 static VALUE cTox_group_message_send(VALUE self, VALUE group_number, VALUE text);
 static VALUE cTox_group_peernumber_is_ours(VALUE self, VALUE group_number, VALUE peer_number);
+static VALUE cTox_name(VALUE self);
+static VALUE cTox_name_ASSIGN(VALUE self, VALUE name);
+static VALUE cTox_status_message(VALUE self);
+static VALUE cTox_status_message_ASSIGN(VALUE self, VALUE text);
 
 static void on_friend_request(
   Tox *tox,
@@ -104,6 +108,10 @@ void Init_tox()
   rb_define_method(cTox, "join_groupchat", cTox_join_groupchat, 2);
   rb_define_method(cTox, "group_message_send", cTox_group_message_send, 2);
   rb_define_method(cTox, "group_peernumber_is_ours", cTox_group_peernumber_is_ours, 2);
+  rb_define_method(cTox, "name", cTox_name, 0);
+  rb_define_method(cTox, "name=", cTox_name_ASSIGN, 1);
+  rb_define_method(cTox, "status_message", cTox_status_message, 0);
+  rb_define_method(cTox, "status_message=", cTox_status_message_ASSIGN, 1);
 
   cTox_cOptions = rb_define_class_under(cTox, "Options", rb_cObject);
   rb_define_alloc_func(cTox_cOptions, cTox_cOptions_alloc);
@@ -370,6 +378,78 @@ VALUE cTox_group_peernumber_is_ours(
     return Qtrue;
   else
     return Qfalse;
+}
+
+VALUE cTox_name(const VALUE self)
+{
+  cTox_ *tox;
+
+  char name[TOX_MAX_NAME_LENGTH];
+  size_t name_size;
+
+  Data_Get_Struct(self, cTox_, tox);
+
+  name_size = tox_self_get_name_size(tox->tox);
+
+  if (name_size > 0)
+    tox_self_get_name(tox->tox, (uint8_t*)name);
+
+  return rb_str_new(name, name_size);
+}
+
+VALUE cTox_name_ASSIGN(const VALUE self, const VALUE name)
+{
+  cTox_ *tox;
+
+  bool result;
+  TOX_ERR_SET_INFO error;
+
+  Check_Type(name, T_STRING);
+
+  Data_Get_Struct(self, cTox_, tox);
+
+  result = tox_self_set_name(tox->tox, (uint8_t*)RSTRING_PTR(name), RSTRING_LEN(name), &error);
+
+  if (error != TOX_ERR_SET_INFO_OK || !result)
+    return Qfalse;
+  else
+    return Qtrue;
+}
+
+VALUE cTox_status_message(const VALUE self)
+{
+  cTox_ *tox;
+
+  char text[TOX_MAX_STATUS_MESSAGE_LENGTH];
+  size_t text_size;
+
+  Data_Get_Struct(self, cTox_, tox);
+
+  text_size = tox_self_get_status_message_size(tox->tox);
+
+  if (text_size > 0)
+    tox_self_get_status_message(tox->tox, (uint8_t*)text);
+
+  return rb_str_new(text, text_size);
+}
+
+VALUE cTox_status_message_ASSIGN(const VALUE self, const VALUE text)
+{
+  cTox_ *tox;
+
+  bool result;
+  TOX_ERR_SET_INFO error;
+
+  Check_Type(text, T_STRING);
+
+  Data_Get_Struct(self, cTox_, tox);
+
+  result = tox_self_set_status_message(tox->tox, (uint8_t*)RSTRING_PTR(text), RSTRING_LEN(text), &error);
+
+  if (error != TOX_ERR_SET_INFO_OK || !result)
+    return Qfalse;
+  else
+    return Qtrue;
 }
 
 void on_friend_request(

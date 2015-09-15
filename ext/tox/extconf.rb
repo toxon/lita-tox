@@ -33,5 +33,11 @@ have_library LIBTOXCORE, 'tox_group_message_send' and
 have_library LIBTOXCORE, 'tox_callback_group_invite' and
 have_library LIBTOXCORE, 'tox_callback_group_message' and
 have_library LIBTOXCORE, 'tox_group_peernumber_is_ours' and
+have_library LIBTOXCORE, 'tox_self_get_name_size' and
+have_library LIBTOXCORE, 'tox_self_get_name' and
+have_library LIBTOXCORE, 'tox_self_set_name' and
+have_library LIBTOXCORE, 'tox_self_get_status_message_size' and
+have_library LIBTOXCORE, 'tox_self_get_status_message' and
+have_library LIBTOXCORE, 'tox_self_set_status_message' and
 
 create_makefile "#{NAME}/#{NAME}" or exit(1)
