@@ -74,7 +74,7 @@ Lita.configure do |config|
 
   config.robot.adapter = :tox
 
-  config.savedata_filename = 'savedata'
-  config.status = "Send me \"#{config.robot.name}: help\""
+  config.adapters.tox.savedata_filename = 'savedata'
+  config.adapters.tox.status = "Send me \"#{config.robot.name}: help\""
 end
 ```
