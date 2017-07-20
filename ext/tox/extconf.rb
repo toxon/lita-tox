@@ -28,11 +28,6 @@ have_library LIBTOXCORE, 'tox_friend_add_norequest' and
 have_library LIBTOXCORE, 'tox_friend_send_message' and
 have_library LIBTOXCORE, 'tox_callback_friend_request' and
 have_library LIBTOXCORE, 'tox_callback_friend_message' and
-have_library LIBTOXCORE, 'tox_join_groupchat' and
-have_library LIBTOXCORE, 'tox_group_message_send' and
-have_library LIBTOXCORE, 'tox_callback_group_invite' and
-have_library LIBTOXCORE, 'tox_callback_group_message' and
-have_library LIBTOXCORE, 'tox_group_peernumber_is_ours' and
 have_library LIBTOXCORE, 'tox_self_get_name_size' and
 have_library LIBTOXCORE, 'tox_self_get_name' and
 have_library LIBTOXCORE, 'tox_self_set_name' and
