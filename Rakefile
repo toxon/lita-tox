@@ -14,6 +14,8 @@ RSpec::Core::RakeTask.new
 
 task lint: [:rubocop]
 
+task fix: 'rubocop:auto_correct'
+
 require 'rubocop/rake_task'
 RuboCop::RakeTask.new
 
