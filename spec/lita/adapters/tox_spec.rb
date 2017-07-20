@@ -16,5 +16,5 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-describe Lita::Adapters::Tox, lita: true do
-end
+# RSpec.describe Lita::Adapters::Tox, lita: true do
+# end
