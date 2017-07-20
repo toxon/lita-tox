@@ -5,7 +5,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'lita-tox'
   spec.version       = '0.3.0'
   spec.authors       = ['Braiden Vasco']
-  spec.email         = ['braiden-vasco@mailtor.net']
+  spec.email         = ['braiden-vasco@users.noreply.github.com']
 
   spec.summary       = 'Tox adapter for the Lita chat bot'
   spec.description   = 'Tox adapter for the Lita chat bot.'
