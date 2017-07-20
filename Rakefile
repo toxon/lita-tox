@@ -1,28 +1,31 @@
 # frozen_string_literal: true
 
-require 'rubygems'
-
-gemspec = Gem::Specification.load('lita-tox.gemspec')
-
-github_user, github_project =
-  gemspec.homepage.scan(%r{^https://github\.com/([^/]+)/([^/]+)/?$})[0]
-
 require 'bundler/gem_tasks'
 
-task default: %i[spec lint]
+GEMSPEC = Gem::Specification.load 'lita-tox.gemspec'
 
-require 'rspec/core/rake_task'
-RSpec::Core::RakeTask.new
+github_user, github_project =
+  GEMSPEC.homepage.scan(%r{^https://github\.com/([^/]+)/([^/]+)/?$})[0]
+
+task default: %i[spec lint]
 
 task lint: :rubocop
 
 task fix: 'rubocop:auto_correct'
 
-require 'rubocop/rake_task'
-RuboCop::RakeTask.new
+begin
+  require 'rspec/core/rake_task'
+  RSpec::Core::RakeTask.new
+rescue LoadError
+  nil
+end
 
-require 'yard'
-YARD::Rake::YardocTask.new
+begin
+  require 'rubocop/rake_task'
+  RuboCop::RakeTask.new
+rescue LoadError
+  nil
+end
 
 desc 'Generate changelog'
 task :changelog, [:token] do |_t, args|
