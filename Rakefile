@@ -29,10 +29,6 @@ end
 
 desc 'Generate changelog'
 task :changelog, [:token] do |_t, args|
-  cmd = 'github_changelog_generator'
-  cmd << " -u #{github_user}"
-  cmd << " -p #{github_project}"
-  cmd << " -t #{args[:token]}" if args[:token]
-
-  sh cmd
+  raise 'please provide access token' unless args[:token]
+  sh "github_changelog_generator -u #{github_user} -p #{github_project} -t #{args[:token]}"
 end
