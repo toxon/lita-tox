@@ -12,6 +12,8 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://github.com/braiden-vasco/lita-tox'
   spec.license       = 'GPL-3.0'
 
+  spec.required_ruby_version = '~> 2.3'
+
   spec.metadata['lita_plugin_type'] = 'adapter'
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
