@@ -1,0 +1,6 @@
+[submodule "vendor/libtoxcore"]
+	path = vendor/libtoxcore
+	url = https://github.com/TokTok/c-toxcore.git
+[submodule "vendor/libsodium"]
+	path = vendor/libsodium
+	url = https://github.com/jedisct1/libsodium.git
