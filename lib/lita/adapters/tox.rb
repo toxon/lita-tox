@@ -33,7 +33,7 @@ module Lita
       config :savedata_filename, type: String
       config :status, type: String
 
-      def initialize(robot)
+      def initialize(robot) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         super
 
         options = ::Tox::Options.new
