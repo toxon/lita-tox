@@ -35,9 +35,6 @@ require 'simplecov'
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-require 'timeout'
-require 'faker'
-
 require 'lita/rspec'
 
 require 'lita-tox'
