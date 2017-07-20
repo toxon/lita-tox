@@ -1,36 +1,36 @@
 # Change Log
 
-## [v0.3.0](https://github.com/braiden-vasco/lita-tox/tree/v0.3.0) (2015-09-15)
-[Full Changelog](https://github.com/braiden-vasco/lita-tox/compare/v0.2.0...v0.3.0)
+## [v0.3.0](https://github.com/toxon/lita-tox/tree/v0.3.0) (2015-09-15)
+[Full Changelog](https://github.com/toxon/lita-tox/compare/v0.2.0...v0.3.0)
 
 **Closed issues:**
 
-- Setup Tox user nickname and status [\#21](https://github.com/braiden-vasco/lita-tox/issues/21)
+- Setup Tox user nickname and status [\#21](https://github.com/toxon/lita-tox/issues/21)
 
-## [v0.2.0](https://github.com/braiden-vasco/lita-tox/tree/v0.2.0) (2015-09-14)
-[Full Changelog](https://github.com/braiden-vasco/lita-tox/compare/v0.1.0...v0.2.0)
+## [v0.2.0](https://github.com/toxon/lita-tox/tree/v0.2.0) (2015-09-14)
+[Full Changelog](https://github.com/toxon/lita-tox/compare/v0.1.0...v0.2.0)
 
 **Merged pull requests:**
 
-- Implement group chats [\#20](https://github.com/braiden-vasco/lita-tox/pull/20) ([braiden-vasco](https://github.com/braiden-vasco))
-- Save Tox state [\#19](https://github.com/braiden-vasco/lita-tox/pull/19) ([braiden-vasco](https://github.com/braiden-vasco))
+- Implement group chats [\#20](https://github.com/toxon/lita-tox/pull/20) ([braiden-vasco](https://github.com/braiden-vasco))
+- Save Tox state [\#19](https://github.com/toxon/lita-tox/pull/19) ([braiden-vasco](https://github.com/braiden-vasco))
 
-## [v0.1.0](https://github.com/braiden-vasco/lita-tox/tree/v0.1.0) (2015-09-13)
+## [v0.1.0](https://github.com/toxon/lita-tox/tree/v0.1.0) (2015-09-13)
 **Merged pull requests:**
 
-- Add instructions [\#13](https://github.com/braiden-vasco/lita-tox/pull/13) ([braiden-vasco](https://github.com/braiden-vasco))
-- Basic implementation [\#12](https://github.com/braiden-vasco/lita-tox/pull/12) ([braiden-vasco](https://github.com/braiden-vasco))
-- Basic "tox" extension implementation [\#11](https://github.com/braiden-vasco/lita-tox/pull/11) ([braiden-vasco](https://github.com/braiden-vasco))
-- Add code documentation [\#10](https://github.com/braiden-vasco/lita-tox/pull/10) ([braiden-vasco](https://github.com/braiden-vasco))
-- Initialize Lita adapter [\#9](https://github.com/braiden-vasco/lita-tox/pull/9) ([braiden-vasco](https://github.com/braiden-vasco))
-- Add changelog generator [\#8](https://github.com/braiden-vasco/lita-tox/pull/8) ([braiden-vasco](https://github.com/braiden-vasco))
-- Use YARD [\#7](https://github.com/braiden-vasco/lita-tox/pull/7) ([braiden-vasco](https://github.com/braiden-vasco))
-- Configure Coveralls [\#6](https://github.com/braiden-vasco/lita-tox/pull/6) ([braiden-vasco](https://github.com/braiden-vasco))
-- Configure Travis CI [\#5](https://github.com/braiden-vasco/lita-tox/pull/5) ([braiden-vasco](https://github.com/braiden-vasco))
-- Add README [\#4](https://github.com/braiden-vasco/lita-tox/pull/4) ([braiden-vasco](https://github.com/braiden-vasco))
-- Configure testing [\#3](https://github.com/braiden-vasco/lita-tox/pull/3) ([braiden-vasco](https://github.com/braiden-vasco))
-- Configure linting [\#2](https://github.com/braiden-vasco/lita-tox/pull/2) ([braiden-vasco](https://github.com/braiden-vasco))
-- Initialize gem [\#1](https://github.com/braiden-vasco/lita-tox/pull/1) ([braiden-vasco](https://github.com/braiden-vasco))
+- Add instructions [\#13](https://github.com/toxon/lita-tox/pull/13) ([braiden-vasco](https://github.com/braiden-vasco))
+- Basic implementation [\#12](https://github.com/toxon/lita-tox/pull/12) ([braiden-vasco](https://github.com/braiden-vasco))
+- Basic "tox" extension implementation [\#11](https://github.com/toxon/lita-tox/pull/11) ([braiden-vasco](https://github.com/braiden-vasco))
+- Add code documentation [\#10](https://github.com/toxon/lita-tox/pull/10) ([braiden-vasco](https://github.com/braiden-vasco))
+- Initialize Lita adapter [\#9](https://github.com/toxon/lita-tox/pull/9) ([braiden-vasco](https://github.com/braiden-vasco))
+- Add changelog generator [\#8](https://github.com/toxon/lita-tox/pull/8) ([braiden-vasco](https://github.com/braiden-vasco))
+- Use YARD [\#7](https://github.com/toxon/lita-tox/pull/7) ([braiden-vasco](https://github.com/braiden-vasco))
+- Configure Coveralls [\#6](https://github.com/toxon/lita-tox/pull/6) ([braiden-vasco](https://github.com/braiden-vasco))
+- Configure Travis CI [\#5](https://github.com/toxon/lita-tox/pull/5) ([braiden-vasco](https://github.com/braiden-vasco))
+- Add README [\#4](https://github.com/toxon/lita-tox/pull/4) ([braiden-vasco](https://github.com/braiden-vasco))
+- Configure testing [\#3](https://github.com/toxon/lita-tox/pull/3) ([braiden-vasco](https://github.com/braiden-vasco))
+- Configure linting [\#2](https://github.com/toxon/lita-tox/pull/2) ([braiden-vasco](https://github.com/braiden-vasco))
+- Initialize gem [\#1](https://github.com/toxon/lita-tox/pull/1) ([braiden-vasco](https://github.com/braiden-vasco))
 
 
 
