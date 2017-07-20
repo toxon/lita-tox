@@ -33,7 +33,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop',                    '~> 0.49.1'
   spec.add_development_dependency 'rspec',                      '~> 3.3'
   spec.add_development_dependency 'simplecov',                  '~> 0.10'
-  spec.add_development_dependency 'yard',                       '~> 0.8'
   spec.add_development_dependency 'redcarpet',                  '~> 3.3'
   spec.add_development_dependency 'github_changelog_generator', '~> 1.6'
   spec.add_development_dependency 'pry',                        '~> 0.10'
