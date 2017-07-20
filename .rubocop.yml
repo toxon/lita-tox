@@ -14,7 +14,7 @@ Layout/MultilineOperationIndentation:
 
 Metrics/BlockLength:
   Exclude:
-    - tox.gemspec
+    - '**/*.gemspec'
     - spec/**/*
 
 Metrics/LineLength:
@@ -26,6 +26,10 @@ Style/AndOr:
 
 Style/DoubleNegation:
   Enabled: false
+
+Style/FileName:
+  Exclude:
+    - lib/lita-tox.rb
 
 Style/GlobalVars:
   Exclude:

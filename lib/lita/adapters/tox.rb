@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # lita-tox - Tox adapter for the Lita chat bot
 # Copyright (C) 2015-2017  Braiden Vasco
 #
