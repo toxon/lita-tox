@@ -7,31 +7,6 @@ Lita::Adapters::Tox
 
 [Tox](https://tox.chat) adapter for the [Lita](http://lita.io) chat bot.
 
-**WARNING**
-
-Still in development. Read the README carefully.
-
-
-TODO
-----
-
-Current development version have some limitations
-which should be fixed in first release:
-
-* [\[issue #16\]](https://github.com/braiden-vasco/lita-tox/issues/16)
-  **libtoxcore** is not included in the gem. It should be compiled manually
-  to build the gem native extension successfully. Follow the instructions in
-  [that file](https://github.com/irungentoo/toxcore/blob/2ab3b14731061cc04d3ccc50a35093c11d018298/INSTALL.md)
-
-* [\[issue #17\]](https://github.com/braiden-vasco/lita-tox/issues/17)
-  JRuby is not supported. Only C extension for Tox is implemented
-
-* [\[issue #18\]](https://github.com/braiden-vasco/lita-tox/issues/18)
-  Message length is limited to value of `TOX_MAX_MESSAGE_LENGTH`
-  (see [source code of **libtoxcore**](https://github.com/irungentoo/toxcore/blob/2ab3b14731061cc04d3ccc50a35093c11d018298/toxcore/tox.h#L252-L255))
-
-* Adapter has incomplete API for Lita. Only basic methods are implemented
-
 
 Usage
 -----
