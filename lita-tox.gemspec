@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'Tox adapter for the Lita chat bot'
   spec.description   = 'Tox adapter for the Lita chat bot.'
-  spec.homepage      = 'https://github.com/braiden-vasco/lita-tox'
+  spec.homepage      = 'https://github.com/toxon/lita-tox'
   spec.license       = 'GPL-3.0'
 
   spec.required_ruby_version = '~> 2.3'
