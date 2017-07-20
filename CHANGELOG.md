@@ -1,5 +1,17 @@
 # Change Log
 
+## [v0.4.0](https://github.com/toxon/lita-tox/tree/v0.4.0) (2017-07-20)
+[Full Changelog](https://github.com/toxon/lita-tox/compare/v0.3.0...v0.4.0)
+
+**Merged pull requests:**
+
+- Transfer repo [\#27](https://github.com/toxon/lita-tox/pull/27) ([braiden-vasco](https://github.com/braiden-vasco))
+- Use newer Lita version [\#26](https://github.com/toxon/lita-tox/pull/26) ([braiden-vasco](https://github.com/braiden-vasco))
+- Use external Tox gem [\#25](https://github.com/toxon/lita-tox/pull/25) ([braiden-vasco](https://github.com/braiden-vasco))
+- Fix CI build [\#24](https://github.com/toxon/lita-tox/pull/24) ([braiden-vasco](https://github.com/braiden-vasco))
+- Change license from MIT to GPL-3.0 [\#23](https://github.com/toxon/lita-tox/pull/23) ([braiden-vasco](https://github.com/braiden-vasco))
+- Remove group chats [\#22](https://github.com/toxon/lita-tox/pull/22) ([braiden-vasco](https://github.com/braiden-vasco))
+
 ## [v0.3.0](https://github.com/toxon/lita-tox/tree/v0.3.0) (2015-09-15)
 [Full Changelog](https://github.com/toxon/lita-tox/compare/v0.2.0...v0.3.0)
 
