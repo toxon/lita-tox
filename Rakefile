@@ -33,9 +33,3 @@ task :changelog, [:token] do |_t, args|
 
   sh cmd
 end
-
-require 'rake/extensiontask'
-
-Rake::ExtensionTask.new 'tox' do |ext|
-  ext.lib_dir = 'lib/tox'
-end

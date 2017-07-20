@@ -40,23 +40,25 @@ module Lita
 
         if config.savedata_filename && File.exist?(config.savedata_filename)
           savedata_file = open(config.savedata_filename)
-          options.data = savedata_file.read
+          options.savedata = savedata_file.read
           savedata_file.close
         end
 
-        @tox = ::Tox.new(options)
+        @tox = ::Tox::Client.new(options)
 
-        log.info("ID: #{@tox.id}")
+        log.info("ID: #{@tox.address.to_hex}")
+
+        @tox.bootstrap_official
 
         @tox.name = robot.name if robot.name
         @tox.status_message = config.status if config.status
 
-        @tox.on_friend_request do |key|
-          @tox.friend_add_norequest(key)
+        @tox.on_friend_request do |public_key|
+          @tox.friend_add_norequest(public_key)
         end
 
-        @tox.on_friend_message do |friend_number, text|
-          user = User.new(friend_number)
+        @tox.on_friend_message do |friend, text|
+          user = User.new(friend.number)
           source = Source.new(user: user)
           message = Message.new(robot, text, source)
 
@@ -66,7 +68,7 @@ module Lita
       end
 
       def run
-        @tox.loop
+        @tox.run
       end
 
       def shut_down
@@ -76,12 +78,12 @@ module Lita
           savedata_file.close
         end
 
-        @tox.kill
+        @tox.stop
       end
 
       def send_messages(target, messages)
         messages.reject(&:empty?).each do |message|
-          @tox.friend_send_message(target.user.id.to_i, message)
+          ::Tox::Friend.new(@tox, target.user.id.to_i).send_message(message)
         end
       end
     end

@@ -35,12 +35,9 @@ require 'simplecov'
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-require 'timeout'
-require 'faker'
-
 require 'lita/rspec'
 
-# require 'lita-tox'
+require 'lita-tox'
 
 # A compatibility mode is provided for older plugins upgrading from Lita 3.
 # Since this plugin was generated with Lita 4, the compatibility mode

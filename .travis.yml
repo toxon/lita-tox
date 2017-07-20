@@ -1,9 +1,6 @@
 language: ruby
 
 rvm:
-  - 2.0
-  - 2.1
-  - 2.2
   - 2.3
   - 2.4
 
@@ -20,6 +17,3 @@ before_install:
   - sudo mkdir -p '/etc/ld.so.conf.d/'
   - echo '/usr/local/lib/' | sudo tee -a '/etc/ld.so.conf.d/locallib.conf'
   - sudo ldconfig
-
-before_script:
-  - rake compile
