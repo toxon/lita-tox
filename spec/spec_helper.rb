@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# This should be on the top of the file
+# This should be on the top of the file.
 require 'simplecov'
 
 # rubocop:disable Style/BlockComments
