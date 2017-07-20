@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # lita-tox - Tox adapter for the Lita chat bot
 # Copyright (C) 2015-2017  Braiden Vasco
 #
@@ -14,5 +16,5 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-describe Lita::Adapters::Tox, lita: true do
-end
+# RSpec.describe Lita::Adapters::Tox, lita: true do
+# end

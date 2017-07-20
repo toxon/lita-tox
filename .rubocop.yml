@@ -1,3 +1,45 @@
 AllCops:
+  TargetRubyVersion: 2.3
+  DisplayCopNames: true
+
   Exclude:
     - vendor/**/*
+
+Layout/AccessModifierIndentation:
+  EnforcedStyle: outdent
+
+Layout/MultilineOperationIndentation:
+  Exclude:
+    - ext/**/*
+
+Metrics/BlockLength:
+  Exclude:
+    - '**/*.gemspec'
+    - spec/**/*
+
+Metrics/LineLength:
+  Max: 120
+
+Style/AndOr:
+  Exclude:
+    - ext/**/*
+
+Style/DoubleNegation:
+  Enabled: false
+
+Style/FileName:
+  Exclude:
+    - lib/lita-tox.rb
+
+Style/GlobalVars:
+  Exclude:
+    - ext/**/*
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/VariableInterpolation:
+  Enabled: false

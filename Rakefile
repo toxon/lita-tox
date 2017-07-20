@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rubygems'
 
 gemspec = Gem::Specification.load('lita-tox.gemspec')
@@ -7,12 +9,14 @@ github_user, github_project =
 
 require 'bundler/gem_tasks'
 
-task default: [:spec, :lint]
+task default: %i[spec lint]
 
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new
 
-task lint: [:rubocop]
+task lint: :rubocop
+
+task fix: 'rubocop:auto_correct'
 
 require 'rubocop/rake_task'
 RuboCop::RakeTask.new

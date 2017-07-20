@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # lita-tox - Tox adapter for the Lita chat bot
 # Copyright (C) 2015-2017  Braiden Vasco
 #
@@ -31,7 +33,7 @@ module Lita
       config :savedata_filename, type: String
       config :status, type: String
 
-      def initialize(robot)
+      def initialize(robot) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         super
 
         options = ::Tox::Options.new

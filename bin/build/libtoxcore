@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+IFS=$'\n\t'
+set -vx
+
+pushd 'vendor/libtoxcore'
+autoreconf -i
+./configure
+make install
+popd
