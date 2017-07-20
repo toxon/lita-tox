@@ -6,7 +6,7 @@ $LOAD_PATH.unshift lib unless $LOAD_PATH.include? lib
 
 Gem::Specification.new do |spec|
   spec.name     = 'lita-tox'
-  spec.version  = '0.3.0'
+  spec.version  = '0.4.0'
   spec.license  = 'GPL-3.0'
   spec.homepage = 'https://github.com/toxon/lita-tox'
   spec.summary  = 'Tox adapter for the Lita chat bot'
