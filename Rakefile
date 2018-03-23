@@ -2,11 +2,6 @@
 
 require 'bundler/gem_tasks'
 
-GEMSPEC = Gem::Specification.load 'lita-tox.gemspec'
-
-github_user, github_project =
-  GEMSPEC.homepage.scan(%r{^https://github\.com/([^/]+)/([^/]+)/?$})[0]
-
 task default: %i[spec lint]
 
 task lint: :rubocop
@@ -25,10 +20,4 @@ begin
   RuboCop::RakeTask.new
 rescue LoadError
   nil
-end
-
-desc 'Generate changelog'
-task :changelog, [:token] do |_t, args|
-  raise 'please provide access token' unless args[:token]
-  sh "github_changelog_generator -u #{github_user} -p #{github_project} -t #{args[:token]}"
 end
